@@ -46,12 +46,20 @@ export default {
             axios.post("http://localhost:1088/login", {
                 email: this.email,
                 password: this.password
+                // resposta "correta"
             }).then(res => {
-                this.$router.push({
-                    name: "home"
-                })
-                console.log(res)
-                localStorage.setItem("token", res.data.token)
+                // verificar se teve erro
+                if(!res.data.status){
+                    var msgErr = res.data.err
+                    this.error = msgErr
+                    // nao teve erro, dar o token
+                } else {
+                     this.$router.push({
+                        name: "home"
+                    })
+                    localStorage.setItem("token", res.data.token)
+
+                }
             }).catch(err => {
                 var msgErr = err.response.data.err
                 this.error = msgErr

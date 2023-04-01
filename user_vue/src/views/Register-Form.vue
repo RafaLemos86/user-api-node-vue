@@ -51,6 +51,7 @@ export default {
                 })
                 console.log(res)
             }).catch(err => {
+                console.log(err)
                 var msgErr = err.response.data.err
                 this.error = msgErr
             })
