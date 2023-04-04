@@ -3,6 +3,33 @@ import HomeView from '../views/HomeView.vue'
 import Register from "../views/Register-Form.vue"
 import Login from "../views/Login-Form.vue"
 import Users from "../views/Users-Adm.vue"
+import axios from "axios";
+
+
+function admAuth(to, from, next) {
+  if (localStorage.getItem("token") != undefined) {
+    // setando o token para enviar 
+    var req = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    }
+    // acessando o middlewer
+    // segundo parametro e um dado q no caso e vazio
+    // terveiro e o token, que deve ser setado deste jeito
+    axios.post("http://localhost:1088/validate", {}, req).then(res => {
+      console.log(res)
+      next()
+    }).catch(err => {
+      console.log(err.response.data)
+      next("/login")
+    })
+
+    // usuário nao tem token
+  } else {
+    next("/login")
+  }
+}
 
 const routes = [
   {
@@ -33,13 +60,7 @@ const routes = [
     path: "/admin/user",
     name: "Users",
     component: Users,
-    beforeEnter(to, from, next) {
-      if (localStorage.getItem("token") != undefined) {
-        next()
-      } else {
-        next("/login")
-      }
-    }
+    beforeEnter: admAuth
   }
 ]
 

@@ -7,7 +7,7 @@ var adminAuth = require("../middleware/adminAuth")
 
 
 // rota de listagem de usuarios
-router.get('/', HomeController.index);
+router.get('/', adminAuth, HomeController.index);
 
 // rota para criacao de user
 router.post('/user', UserController.create)
@@ -33,4 +33,6 @@ router.post("/change", UserController.changePassword)
 // login
 router.post("/login", UserController.login)
 
+// validacao vue
+router.post("/validate", adminAuth, HomeController.validate)
 module.exports = router;
