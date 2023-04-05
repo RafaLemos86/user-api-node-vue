@@ -22,7 +22,7 @@ router.get("/user/:id", UserController.findUser)
 router.put("/user", UserController.edit)
 
 // deletando usuário
-router.delete("/user/:id", UserController.delete)
+router.delete("/user/:id", adminAuth, UserController.delete)
 
 // enviando token de recuperacao
 router.post("/recovery", UserController.sendToken)
