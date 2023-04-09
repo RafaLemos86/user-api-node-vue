@@ -19,7 +19,7 @@ router.get("/user", UserController.index)
 router.get("/user/:id", UserController.findUser)
 
 // update usuario
-router.put("/user", UserController.edit)
+router.put("/user", adminAuth, UserController.edit)
 
 // deletando usuário
 router.delete("/user/:id", adminAuth, UserController.delete)

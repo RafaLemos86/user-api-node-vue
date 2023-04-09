@@ -22,7 +22,11 @@
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
                             <td> {{ roleUser(user.role) }}</td>
-                            <td> <button class="button is-warning">Editar</button><p>-----</p> <button class="button is-danger" @click="ShowModalBtn(user.id )">Deletar</button></td>
+                            <td> 
+                                <router-link :to="{name: 'UserEdit', params: {id: user.id} }" > <button class="button is-warning" >Editar</button>  </router-link>     
+                                <p>-----</p> 
+                                <button class="button is-danger" @click="ShowModalBtn(user.id )">Deletar</button>
+                            </td>
                         </tr>
                      </tbody>
                 </table>
@@ -48,7 +52,7 @@
                     </header>
                     <div class="card-content">
                         <div class="content">
-                        Confirmando a operação, o usuário será deletado de forma permantente no sistema!
+                        Confirmando a operação, o usuário será deletado de forma permanente no sistema!
                         <br>
                         </div>
                     </div>
@@ -122,6 +126,7 @@ export default {
                     this.users = res.data
                 }).catch(err => {
                     console.log(err)
+                    this.hideModal()
                 })
 
             }).catch(err => {

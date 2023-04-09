@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import Register from "../views/Register-Form.vue"
 import Login from "../views/Login-Form.vue"
 import Users from "../views/Users-Adm.vue"
+import UserEdit from "../views/User-edit.vue"
+
 import axios from "axios";
 var req = require("../token/token")
 
@@ -56,6 +58,12 @@ const routes = [
     path: "/admin/user",
     name: "Users",
     component: Users,
+    beforeEnter: admAuth
+  },
+  {
+    path: "/admin/user/edit/:id",
+    name: "UserEdit",
+    component: UserEdit,
     beforeEnter: admAuth
   }
 ]
